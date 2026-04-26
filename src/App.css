@@ -1,0 +1,131 @@
+/* Global Reset & Body */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body { 
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  color: white; 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  height: 100vh; /* Force full viewport height */
+  overflow: hidden; /* Prevent scrolling */
+}
+
+/* Main Container - Fits exactly in viewport */
+.cricket-app {
+  width: 95%; 
+  max-width: 850px; 
+  height: 95vh; /* Fits in screen */
+  background: rgba(30, 30, 30, 0.95); 
+  border-radius: 16px; 
+  padding: 15px; 
+  display: flex; 
+  flex-direction: column; 
+  gap: 10px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+}
+
+/* Scoreboard */
+.scoreboard { 
+  text-align: center; 
+  background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); 
+  padding: 10px; 
+  border-radius: 12px;
+  border: 2px solid #4a69bd;
+  flex-shrink: 0; /* Don't shrink */
+}
+
+.scoreboard h1 { font-size: 1.8rem; margin-bottom: 5px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+
+.stats { 
+  display: flex; 
+  justify-content: space-around; 
+  font-size: 1rem;
+  gap: 10px;
+}
+
+.stats span { background: rgba(0,0,0,0.3); padding: 6px 12px; border-radius: 8px; }
+.stats b { color: #f9ca24; font-size: 1.1rem; }
+
+.game-over { margin-top: 8px; color: #ff6b6b; font-weight: bold; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; gap: 10px; }
+.game-over button { padding: 6px 15px; cursor: pointer; background: #f9ca24; border: none; border-radius: 6px; font-weight: bold; color: #2c3e50; }
+
+/* Field - Takes Available Space */
+.field {
+  flex-grow: 1; /* Takes remaining space */
+  min-height: 0; /* Allow shrinking */
+  background: linear-gradient(180deg, #2d8a4e 0%, #1b5e30 50%, #0d3b1f 100%);
+  border-radius: 12px; 
+  position: relative; 
+  overflow: hidden; 
+  display: flex; 
+  justify-content: center; 
+  align-items: center;
+  border: 3px solid #1e8449;
+  box-shadow: inset 0 0 30px rgba(0,0,0,0.3);
+}
+
+/* Pitch */
+.pitch { 
+  width: 120px; 
+  height: 70%; 
+  background: linear-gradient(180deg, #d4a373 0%, #c4956a 50%, #b8956a 100%); 
+  border-radius: 6px;
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+/* Crease lines */
+.pitch::before, .pitch::after { content: ''; position: absolute; left: 0; right: 0; height: 2px; background: rgba(255,255,255,0.6); }
+.pitch::before { top: 15%; }
+.pitch::after { bottom: 15%; }
+
+/* Batsman */
+.batsman { position: absolute; bottom: 15%; left: 50%; transform: translateX(-50%); width: 30px; height: 50px; z-index: 10; }
+.batsman-body { width: 16px; height: 30px; background: #3498db; border-radius: 4px; position: absolute; bottom: 0; left: 7px; }
+.batsman-head { width: 16px; height: 16px; background: #f1c40f; border-radius: 50%; position: absolute; top: 0; left: 7px; border: 2px solid #2c3e50; }
+.batsman-bat { width: 5px; height: 25px; background: #8b4513; position: absolute; bottom: 15px; right: -5px; border-radius: 2px; transform: rotate(-15deg); transform-origin: bottom center; }
+
+/* Ball */
+.ball { position: absolute; top: 15%; left: 50%; transform: translateX(-50%); width: 16px; height: 16px; background: radial-gradient(circle at 30% 30%, #ff6b6b, #c0392b); border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.3); z-index: 5; }
+.ball::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 12px; height: 12px; border: 2px solid rgba(255,255,255,0.4); border-radius: 50%; }
+
+/* Result Display */
+.result-display { text-align: center; font-size: 1.2rem; font-weight: bold; min-height: 1.5rem; text-shadow: 0 2px 4px rgba(0,0,0,0.5); flex-shrink: 0; }
+
+/* Controls */
+.controls { display: flex; gap: 8px; flex-wrap: nowrap; justify-content: center; align-items: center; flex-shrink: 0; }
+button { padding: 10px 15px; border: none; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 0.9rem; transition: all 0.2s; text-transform: uppercase; }
+.style-btn { background: #555; color: white; flex: 1; }
+.style-btn.active { background: #4cc9f0; color: #111; box-shadow: 0 0 10px rgba(76, 201, 240, 0.6); }
+.play-btn { background: linear-gradient(135deg, #f9ca24 0%, #f0932b 100%); color: #111; flex: 2; font-size: 1rem; }
+.play-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(249, 202, 36, 0.5); }
+.play-btn:disabled { background: #777; cursor: not-allowed; opacity: 0.6; }
+
+/* Power Bar Section */
+.power-bar-section { background: #1a1a1a; padding: 10px; border-radius: 10px; border: 2px solid #444; flex-shrink: 0; }
+.power-bar-labels { margin-bottom: 5px; text-align: center; color: #ccc; font-size: 0.8rem; }
+.power-bar-labels b { color: #f9ca24; }
+.power-bar-container { position: relative; height: 35px; background: #333; border-radius: 20px; display: flex; overflow: hidden; border: 2px solid #555; }
+.power-segment { height: 100%; display: flex; align-items: center; justify-content: center; color: #111; font-weight: bold; font-size: 0.7rem; transition: width 0.3s; border-right: 1px solid rgba(0,0,0,0.2); }
+.slider { position: absolute; top: -5px; bottom: -5px; width: 4px; background: #fff; border: 2px solid #f00; border-radius: 2px; box-shadow: 0 0 10px rgba(255, 255, 255, 0.8); z-index: 10; pointer-events: none; }
+
+/* Animations (From Step 3) */
+@keyframes bowlDown { 0% { top: 15%; transform: translateX(-50%) scale(0.8); } 100% { top: 75%; transform: translateX(-50%) scale(1.1); } }
+.ball.bowling { animation: bowlDown 0.8s cubic-bezier(0.25, 0.1, 0.25, 1) forwards; }
+@keyframes batSwing { 0% { transform: rotate(-20deg); } 40% { transform: rotate(50deg); } 100% { transform: rotate(-20deg); } }
+.batsman.swinging .batsman-bat { animation: batSwing 0.4s ease-out; }
+@keyframes flyStraight { 100% { top: 10%; left: 50%; transform: translateX(-50%) scale(0.5); } }
+@keyframes flyCover { 100% { top: 20%; left: 15%; transform: scale(0.6) rotate(-20deg); } }
+@keyframes flyMidwicket { 100% { top: 20%; left: 85%; transform: scale(0.6) rotate(20deg); } }
+@keyframes flySky { 100% { top: -10%; left: 50%; transform: translateX(-50%) scale(0.3); opacity: 0; } }
+@keyframes flyWicket { 100% { top: 80%; left: 50%; transform: translateX(-50%) scale(1.2); opacity: 0; } }
+.ball.fly-0 { animation: flyStraight 0.5s ease-out forwards; }
+.ball.fly-1 { animation: flyCover 0.5s ease-out forwards; }
+.ball.fly-2 { animation: flyMidwicket 0.5s ease-out forwards; }
+.ball.fly-3 { animation: flyCover 0.5s ease-out forwards; }
+.ball.fly-4 { animation: flyMidwicket 0.5s ease-out forwards; }
+.ball.fly-6 { animation: flySky 0.5s ease-out forwards; }
+.ball.fly-W { animation: flyWicket 0.4s ease-in forwards; }
